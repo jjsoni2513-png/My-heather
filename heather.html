@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heather's Day Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the DARKER Cute Purple Color Palette */
+        :root {
+            --purple-light: #d8b4fe; /* Light but rich lavender for background */
+            --purple-medium: #a78bfa; /* Medium violet for accents/borders */
+            --purple-dark: #8b5cf6;   /* Deep violet for shadows/hearts */
+            --heart-size: 20px;
+        }
+
+        /* --- Global Background and Base Styles --- */
+        .cute-background {
+            background-color: var(--purple-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle repeating dot pattern for texture (Layer 1) */
+        .cute-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.35;
+            background-image: radial-gradient(var(--purple-medium) 1.5px, transparent 1.5px);
+            background-size: 15px 15px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gradient Overlay for Extra Detail (Layer 2) */
+        .cute-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background: radial-gradient(circle at center, var(--purple-medium) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- Sweater Card Styling --- */
+        .sweater-card {
+            max-width: 90%;
+            width: 400px;
+            background-color: #ffffff;
+            border-radius: 2.5rem; /* Slightly softer radius */
+            padding: 2.5rem;
+            box-shadow: 0 35px 70px -18px rgba(139, 92, 246, 0.7); /* Darker purple shadow */
+            position: relative;
+            z-index: 10;
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            border: 6px solid var(--purple-medium);
+            filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.6)); /* Brighter glow */
+        }
+
+        .sweater-card:hover {
+            transform: scale(1.04) rotate(-0.5deg); /* Slight rotation on hover */
+            box-shadow: 0 50px 100px -25px var(--purple-dark);
+        }
+
+        .sweater-img {
+            width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            object-fit: cover;
+        }
+
+        /* --- CSS Decorative Elements (Hearts) --- */
+        .css-heart {
+            position: absolute;
+            background-color: var(--purple-dark);
+            width: var(--heart-size);
+            height: var(--heart-size);
+            transform: rotate(-45deg); 
+            z-index: 1; 
+            filter: blur(1px); 
+            opacity: 0.6;
+        }
+
+        .css-heart::before, .css-heart::after {
+            content: "";
+            background-color: inherit; 
+            border-radius: 50%;
+            position: absolute;
+            width: var(--heart-size);
+            height: var(--heart-size);
+        }
+        .css-heart::before { top: calc(var(--heart-size) / -2); left: 0; }
+        .css-heart::after { left: calc(var(--heart-size) / 2); top: 0; }
+
+        /* --- CSS Decorative Elements (Stars/Glints) --- */
+        .css-star {
+            position: absolute;
+            background: white; /* Bright white for sparkle */
+            width: 8px;
+            height: 8px;
+            z-index: 1;
+            transform: rotate(45deg); /* Diamond shape */
+            filter: blur(1px);
+            opacity: 0.8;
+            animation: twinkle 4s infinite ease-in-out, float-star 10s infinite ease-in-out;
+        }
+
+        /* Define specific star positions and sizes */
+        .star-1 { top: 5%; right: 40%; width: 10px; height: 10px; animation-delay: 1s; }
+        .star-2 { bottom: 15%; right: 15%; animation-delay: 3s; }
+        .star-3 { top: 25%; left: 30%; animation-delay: 5s; }
+
+        /* --- Animation Definitions --- */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.2; transform: scale(0.8) rotate(45deg); }
+        }
+        @keyframes float-star {
+            0% { transform: translate(0, 0) rotate(45deg); }
+            50% { transform: translate(10px, -15px) rotate(45deg); }
+            100% { transform: translate(0, 0) rotate(45deg); }
+        }
+        
+        @keyframes float-1 { 0% { transform: translate(0, 0) rotate(-45deg); } 50% { transform: translate(30px, -40px) rotate(-45deg); } 100% { transform: translate(0, 0) rotate(-45deg); } }
+        @keyframes float-2 { 0% { transform: translate(0, 0) rotate(-45deg); } 50% { transform: translate(-20px, 30px) rotate(-45deg); } 100% { transform: translate(0, 0) rotate(-45deg); } }
+        @keyframes float-3 { 0% { transform: translate(0, 0) rotate(-45deg); } 50% { transform: translate(-50px, -10px) rotate(-45deg); } 100% { transform: translate(0, 0) rotate(-45deg); } }
+        @keyframes float-4 { 0% { transform: translate(0, 0) rotate(-45deg); } 50% { transform: translate(10px, -20px) rotate(-45deg); } 100% { transform: translate(0, 0) rotate(-45deg); } }
+
+        /* Heart Position and Size Definitions */
+        .heart-1 { --heart-size: 30px; top: 10%; left: 5%; opacity: 0.8; background-color: var(--purple-medium); animation-duration: 12s; animation-name: float-1; }
+        .heart-2 { --heart-size: 25px; top: 40%; right: 10%; animation-duration: 16s; animation-delay: 2s; background-color: var(--purple-dark); animation-name: float-2; }
+        .heart-3 { --heart-size: 35px; bottom: 5%; left: 20%; opacity: 0.7; background-color: var(--purple-medium); animation-duration: 18s; animation-name: float-3; }
+        .heart-4 { --heart-size: 20px; bottom: 30%; right: 5%; animation-duration: 14s; animation-delay: 4s; background-color: var(--purple-dark); animation-name: float-4; }
+    </style>
+</head>
+<body class="cute-background">
+    
+    <div class="sweater-card">
+        
+        <img
+            id="sweaterImage"
+            src="https://github.com/jjsoni2513-png/Beyonder/raw/refs/heads/main/1764690061649.png"
+            alt="A beautiful cozy sweater gift"
+            class="sweater-img"
+            onerror="this.onerror=null; this.src='https://placehold.co/400x400/8B5CF6/ffffff?text=Cozy+Gift'"
+        >
+
+    </div>
+
+    <div class="css-heart heart-1"></div>
+    <div class="css-heart heart-2"></div>
+    <div class="css-heart heart-3"></div>
+    <div class="css-heart heart-4"></div>
+
+    <div class="css-star star-1"></div>
+    <div class="css-star star-2"></div>
+    <div class="css-star star-3"></div>
+
+</body>
+</html>
